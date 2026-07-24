@@ -1412,9 +1412,9 @@ class Topic < ActiveRecord::Base
   # go out of sync unless you do something drastic live move posts from one topic to another.
   # this recalculates everything.
   def update_statistics!
+    update_column(:highest_post_number, Topic.reset_highest(id))
     feature_topic_users
     update_action_counts
-    update_column(:highest_post_number, Topic.reset_highest(id))
   end
 
   def update_action_counts
